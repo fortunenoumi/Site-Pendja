@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/output.css">
+    <script src="./assets/js/fortune.js" defer></script>
+    <link rel="stylesheet" href="./assets/fontawesome-free-6.0.0-beta3-web/css/all.min.css">
+    <title>Document</title>
+
+    <style>
+        .mon_cercle {
+            border: none;
+            padding: 0;
+            transition: all 0.23s ease-in-out;
+
+        }
+
+        .mon_cercle.mon_cercle_actif {
+            border: 2px solid orange;
+            padding: 8px;
+
+        }
+
+        .duel {
+            width: 160px;
+            height: 160px;
+            border: 5px solid gray;
+            border-top: 5px solid green;
+            border-radius: 50%;
+            animation: tournage 2s ease-in-out 0.1s 3;
+
+        }
+
+        @keyframes tournage {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(3060deg);
+            }
+
+        }
+
+        /* Couleur de curseur */
+
+
+        .curseur_couleur{
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 2px solid red;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s ease;
+        }
+
+        .curseur_couleur::after{
+            content:"";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background-color: yellow;
+            border-radius: 50%;
+            transform: translate(-50%,-50%);
+            transition: opacity 0.2s ease;
+        }
+
+        .curseur_couleur.mon_hover{
+            width: 80px;
+            height: 80px;
+            background-color: blue;
+            mix-blend-mode: multiply;
+
+        }
+        .curseur_couleur.mon_hover::after{
+            opacity: 0;
+        }
+
+        
+
+
+    </style>
+
+</head>
+
+<body class="overflow-x-hidden">
+
+    <!-- <div id="customCursor" class="cursor-point"></div> -->
+
+    <!-- Couleur et changement du curseur -->
+    <div class="curseur_couleur" id="grandCurseur"></div>
+
+    <!-- EFFET DU LOADER :CHARGEMENT DE LA PAGE -->
+
+    <!-- <div id="chargement_page" class="fixed inset-0 bg-white z-1000 flex  flex-col justify-center items-center">
+        <div class="duel"></div>
+       <div class="mt-20 flex flex-col gap-8">
+         <p class="text-9xl text-green-500 font-bold">PENJA</p>
+        <p class="text-center text-green-500 font-medium text-2xl tracking-[24px]">LOADING</p>
+       </div>
+
+    </div> -->
+
+    <nav id="scroll-navbar" class="fixed top-0 left-0 z-40 w-full bg-white hidden transition duration-500  ">
+        <img src="./assets/images/logo-removebg-preview.png" alt=""
+                    class="w-20 1200:hidden">
+            <div class="flex  justify-center items-center space-x-96 max-1604:ml-32 ml-72 mt-2">
+                <!-- TRANSFORMATION DE L'IMAGE  DE COULEUR "VERTE-NOIR" EN COULEUR "BLANCHE" -->
+                <img src="./assets/images/logo-removebg-preview.png" alt=""
+                    class="w-20 max-1200:hidden ">
+
+                <ul class="flex  gap-10 justify-center items-center max-1585:-ml-20 max-1200:hidden">
+                    <li><a href="" class="text-lg text-black hover:text-[#057e2b]">Accueil</a></li>
+                    <li><a href="" class="text-lg text-black hover:text-[#057e2b]">A Propos</a></li>
+                    <li><a href="" class="text-lg text-black hover:text-[#057e2b]">Services</a></li>
+                    <li><a href="" class="text-lg text-black hover:text-[#057e2b]">Galerie</a></li>
+                
+                     
+                <button  class="  relative overflow-hidden group   bg-[#057e2b] pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] min-w-[170px] cursor-pointer max-1305:ml-6 max-1520:ml-20 max-1545:ml-32 max-1604:ml-40 ml-52  ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10">
+                     <i class="fa-solid fa-phone text-lg "></i>
+                    <li class="list-none text-lg capitalize font-medium  ">contact</li>
+                   </span>
+                    <span class=" absolute inset-0 bg-black translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+
+                </button>
+                </ul>
+            
+            </div>
+                      <!-- Bouton menu bar responsive -->
+
+            <div class="1200:hidden  "> 
+                <button class="">
+                    <i class="fa-solid fa-bars text-2xl "></i>
+                </button>
+
+            </div>
+
+           
+
+        </nav>
+
+    <header class="relative w-screen h-screen overflow-x-hidden">
+
+        <nav class="absolute top-0 left-0 z-50  max-1200:flex max-1200:justify-center max-1200:items-center max-1200:gap-80 max-1200:px-40 max-500:px-20 ">
+            <img src="./assets/images/logo-removebg-preview.png" alt="" class="w-20 brightness-0 saturate-100 invert 1200:hidden">
+            <div class="flex  justify-center items-center space-x-96 max-1604:ml-32 ml-72 mt-2">
+                <!-- TRANSFORMATION DE L'IMAGE  DE COULEUR "VERTE-NOIR" EN COULEUR "BLANCHE" -->
+                <img src="./assets/images/logo-removebg-preview.png" alt=""
+                    class="w-20 brightness-0 saturate-100 invert max-1200:hidden">
+                <ul class="flex  gap-10 justify-center items-center max-1585:-ml-20 max-1200:hidden">
+                    <li><a href="" class="text-lg text-white">Accueil</a></li>
+                    <li><a href="" class="text-lg text-white">A Propos</a></li>
+                    <li><a href="" class="text-lg text-white">Services</a></li>
+                    <li><a href="" class="text-lg text-white">Galerie</a></li>
+                
+                     
+                <button  class="  relative overflow-hidden group   bg-[#057e2b] pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] min-w-[170px] cursor-pointer  max-1305:ml-6 max-1520:ml-20 max-1545:ml-32 max-1604:ml-40 ml-52 ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10">
+                     <i class="fa-solid fa-phone text-lg "></i>
+                    <li class="list-none text-lg capitalize font-medium  ">contact</li>
+                   </span>
+                    <span class=" absolute inset-0 bg-black translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+
+                </button>
+                </ul>
+
+                
+            </div>
+                      <!-- Bouton menu bar responsive -->
+
+            <div class="1200:hidden left-80"> 
+                <!-- Boutton  menu -->
+                <button class="max-1010:-ml-32 max-885:-ml-64 md:-ml-80 max-750:-ml-96 max-620:-ml-[500px]" id="boutonMenu">
+                    <i class="fa-solid fa-bars text-2xl text-white  "></i>
+                </button>
+                <div id="menuContainer" class=" fixed right-0 top-0  flex flex-col bg-[#f4f6fa] w-[398px] h-[915px] transform translate-x-full transition-transform  " >
+                    <!-- Bouton Close -->
+                    <div class=" flex gap-60 p-8 items-center ">
+                        <img src="./assets/images/logo.png" alt="" class="w-[40px] h-[40px]">
+                         <button id="boutonClose" class="  ">
+                        <i class="fa-solid fa-close text-2xl text-white w-[45px] h-[45px] rounded-full bg-verte p-3 "></i>
+                     </button>
+                    </div>
+
+                    <div class="px-10 ">
+
+                     <ul class=" mt-10 flex flex-col gap-5  ">
+                    
+                    <li><a href="" class="text-[16px] text-black hover:text-[#ffbf25] font-bold relative after:content:[''] after:absolute after:w-80 after:h-[1px] after:bg-[#d5d5d5] after:bottom-0 after:left-0 pb-4">A Propos</a></li>
+                    <li><a href="" class="text-[16px] text-black hover:text-[#ffbf25] font-bold relative after:content:[''] after:absolute after:w-80 after:h-[1px] after:bg-[#d5d5d5] after:bottom-0 after:left-0 pb-4 ">Services</a></li>
+                    <li><a href="" class="text-[16px] text-black  hover:text-[#ffbf25] font-bold relative after:content:[''] after:absolute after:w-80 after:h-[1px] after:bg-[#d5d5d5] after:bottom-0 after:left-0 pb-4">Galerie</a></li>
+                  
+                </ul>
+                <div class="mt-8">
+                    <h2 class="capitalize text-xl text-black font-bold ">contact info</h2>
+                    <ul class="mt-5 space-y-5">
+                       <li class=" flex gap-4 items-center">
+                         <i class="fa-solid fa-location text-xl text-verte"></i>
+                         <a href="" class="text-grise">Bonamoussadi Sable</a>
+                       </li>
+                       <li class=" flex gap-4 items-center">
+                         <i class="fa-solid fa-phone text-xl text-verte"></i>
+                         <a href="" class="text-grise">contact@penjaimportexport.com</a>
+                       </li>
+                       <li class=" flex gap-4 items-center">
+                         <i class="fa-solid fa-phone text-xl text-verte"></i>
+                         <a href="" class="text-grise">Lun - Sam: 7H30 - 18H</a>
+                       </li>
+                       <li class=" flex gap-4 items-center">
+                         <i class="fa-solid fa-phone text-xl text-verte"></i>
+                         <a href="" class="text-grise">(+237) 653 14 78 16 | 656 22 79 31</a>
+                       </li>
+
+                    </ul>
+
+                     <button  class=" mt-9 relative overflow-hidden group   bg-[#057e2b] pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] min-w-[338px] cursor-pointer   ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10">
+                     <i class="fa-solid fa-phone text-lg "></i>
+                    <li class="list-none text-lg capitalize font-medium  ">contact</li>
+                   </span>
+                    <span class=" absolute inset-0 bg-black translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+
+                </button>
+                <div class="mt-8 flex gap-2">
+                    <i class="fab fa-facebook-f text-lg text-[#555555] hover:text-white w-[45px] h-[45px] border border-[#d5d5d5] rounded-full bg-white hover:bg-verte p-4 "></i>
+                    <i class="fab fa-youtube text-lg text-[#555555] hover:text-white w-[45px] h-[45px] border border-[#d5d5d5] rounded-full bg-white hover:bg-verte p-3 "></i>
+                    <i class="fab fa-linkedin-in text-lg text-[#555555] hover:text-white w-[45px] h-[45px] border border-[#d5d5d5] rounded-full bg-white hover:bg-verte p-3 "></i>
+                   
+                </div>
+                </div>
+                
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="relative w-screen overflow-hidden">
+            <!-- IMAGES DU SLIDER -->
+            <div id="mon_slide" class=" flex transition-transform duration-1000 ease-in-out">
+               
+                <!-- <img src="./assets/images/adobestock.jpeg" alt=""
+                    class="w-screen h-screen  flex-shrink-0 object-cover brightness-50"> -->
+
+                    <!-- PARTIE 1 : AFFICHAGE DE L'IMAGE SLIDER 1 et ses éléments -->
+                    <div class="relative w-screen h-screen  flex-shrink-0 overflow-hidden ">
+                        <!-- PARTIE ARRIÈRE-PLAN DE L'IMAGE 1 -->
+             <div class="bg-[url('../images/adobestock.jpeg')]  absolute inset-0 bg-cover bg-center brightness-50 z-0"></div>
+
+             <div class="relative z-10 ">
+                
+             <!-- TITRE-PARAGRAPHE ; BOUTONS; CERCLE -->
+             <div class=" max-1365:flex max-1365:flex-col  max-1365:justify-center max-1365:items-center  ml-14">
+                <!-- PARTIE TITRE ET PARAGRAPHE -->
+                 <div class=" text-white  mt-60 flex flex-col gap-8  ">
+                  <p class="">Des pofessionnels à votre  service</p>
+                  <h1 class=" max-500:text-[34px] max-750:text-[45px] text-[60px] font-extrabold ">PENJA IMPORT EXPORT <br> EXPERT EN PNEUMATIQUE</h1>
+                  <p class=" max-500:text-lg text-[18px]">Nous sommes un garage pneumatique et de maintenance express des véhicules</p>
+                  
+                 </div>
+            
+               <!-- PARTIE BOUTTONS -->
+                 <div class="mt-10   flex max-500: flex-col  max-500: gap-4 500:flex-row max-500:-ml-20 ">
+                    <button  class="  relative overflow-hidden group   bg-[#057e2b] pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] max-500:min-w-[205px] 500:min-w-[170px] cursor-pointer  ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10">
+                    
+                    <li class="list-none text-lg  capitalize font-medium group-hover:text-black ">contact</li>
+                    <i class="fa-solid fa-arrow-right group-hover:text-black  "></i>
+                   </span>
+                    <span class=" absolute inset-0 bg-white  translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+
+                </button>
+                    <button  class="  relative overflow-hidden group   pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] min-w-[465px] 500:min-w-[170px] cursor-pointer border-2 border-[#057e2b]   ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10">
+                     
+                    <li class="list-none text-lg capitalize font-medium group-hover:text-green-500 ">Services</li>
+                    <i class="fa-solid fa-wrench group-hover:text-green-500 "></i>
+                   </span>
+                    <span class=" absolute inset-0 bg-white translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+                    
+
+                </button>
+                 
+                </div>
+                <!-- PARTIE CERCLE D'ICÔNES DE VOITURES -->
+                <div class="flex gap-4 mt-10 relative">
+                <div class="w-10 h-10 rounded-full bg-white ">
+                     <i class="fa-solid fa-wrench text-green-500 text-2xl p-2"></i>
+                </div>
+                  <div class="w-10 h-10 rounded-full bg-white absolute left-8 ">
+                     <i class="fa-solid fa-car text-green-500 text-2xl p-2"></i>
+                </div>
+                  <div class="w-10 h-10 rounded-full bg-white absolute left-16">
+                     <i class="fa-solid fa-gear text-green-500 text-2xl p-2"></i>
+                </div>
+                  <div class="w-10 h-10 rounded-full bg-[#057e2b] absolute left-24 ">
+                     <i class="fa-solid fa-plus  text-white text-2xl p-2"></i>
+                </div>
+                </div>
+             </div>
+                <!-- PARTIE CARRÉE VERT ET ROUES -->
+                  <div class="absolute top-32 max-1365:hidden max-1400:left-[800px]  max-1440:left-[850px] max-1475:left-[900px] max-1520:left-[940px]  max-1545:left-[980px] max-1585:left-[1000px] max-1604:left-[1040px] 1604:left-[1290px]  w-[486px] h-[528px] bg-[url('../images/car-shape.png')]">
+                    <img src="./assets/images/pneus(1).png" alt="" class="absolute top-28 w-[691.36] h-[438.436]">
+                    </div>
+
+             </div>
+           
+                
+
+             </div>
+
+                <!-- <img src="./assets/images/car-being-taking-care-workshop.jpeg" alt=""
+                    class="w-screen h-screen flex-shrink-0 object-cover brightness-50"> -->
+                 <!-- PARTIE 1 : AFFICHAGE DE L'IMAGE SLIDER 2 -->
+                    <div class="relative w-screen h-screen  flex-shrink-0 overflow-hidden ">
+
+                        <!-- PARTIE ARRIÈRE-PLAN DE L'IMAGE 2 -->
+             <div class="bg-[url('../images/car-being-taking-care-workshop.jpeg')]  absolute inset-0 bg-cover bg-center brightness-50 z-0"></div>
+             <!-- TITRE-PARAGRAPHE ; BOUTONS; CERCLE -->
+             <div class="relative z-10">
+                <!-- PARTIE TITRE ET PARAGRAPHE -->
+                 <div class=" text-white  mt-60 ml-16 flex flex-col gap-12 ">
+                  <p class="">Des pofessionnels à votre  service</p>
+                  <h1 class="text-5xl font-extrabold">PENJA IMPORT EXPORT <br> EXPERT EN PNEUMATIQUE</h1>
+                  <p>Nous sommes un garage pneumatique et de maintenance express des véhicules</p>
+                  
+                 </div>
+            
+               <!-- PARTIE BOUTTONS -->
+                 <div class="mt-10 ml-16 space-x-2">
+                    <button  class="  relative overflow-hidden group   bg-[#057e2b] pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] min-w-[170px] cursor-pointer  ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10">
+                    
+                    <li class="list-none text-lg  capitalize font-medium group-hover:text-black ">contact</li>
+                    <i class="fa-solid fa-arrow-right group-hover:text-black  "></i>
+                   </span>
+                    <span class=" absolute inset-0 bg-white  translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+
+                </button>
+                    <button  class="  relative overflow-hidden group   pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] min-w-[170px] cursor-pointer border-2 border-[#057e2b]   ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10">
+                     
+                    <li class="list-none text-lg capitalize font-medium group-hover:text-green-500 ">Services</li>
+                    <i class="fa-solid fa-wrench group-hover:text-green-500 "></i>
+                   </span>
+                    <span class=" absolute inset-0 bg-white translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+                    
+
+                </button>
+                 
+                </div>
+                <!-- PARTIE CERCLE D'ICÔNES DE VOITURES -->
+                <div class="flex gap-4 ml-16 mt-10 relative">
+                <div class="w-10 h-10 rounded-full bg-white ">
+                     <i class="fa-solid fa-wrench text-green-500 text-2xl p-2"></i>
+                </div>
+                  <div class="w-10 h-10 rounded-full bg-white absolute left-8 ">
+                     <i class="fa-solid fa-car text-green-500 text-2xl p-2"></i>
+                </div>
+                  <div class="w-10 h-10 rounded-full bg-white absolute left-16">
+                     <i class="fa-solid fa-gear text-green-500 text-2xl p-2"></i>
+                </div>
+                  <div class="w-10 h-10 rounded-full bg-[#057e2b] absolute left-24 ">
+                     <i class="fa-solid fa-plus  text-white text-2xl p-2"></i>
+                </div>
+                </div>
+
+                 <!-- PARTIE CARRÉE VERT ET ROUES -->
+                  <div class="absolute top-40 left-[1310px] w-[486px] h-[528px] bg-[url('../images/car-shape.png')]">
+                    <img src="./assets/images/voiture.png" alt="" class="absolute top-28 w-[691.36] h-[438.436]">
+                    </div>
+
+             </div>
+                
+
+               </div>
+
+                <!-- <img src="./assets/images/vidange.jpeg" alt=""
+                    class="w-screen h-screen  flex-shrink-0 object-cover brightness-50"> -->
+
+                          <!-- PARTIE 1 : AFFICHAGE DE L'IMAGE SLIDER 3 -->
+                    <div class="relative w-screen h-screen  flex-shrink-0 overflow-hidden ">
+                        <!-- PARTIE ARRIÈRE-PLAN DE L'IMAGE 3 -->
+             <div class="bg-[url('../images/vidange.jpeg')]  absolute inset-0 bg-cover bg-center brightness-50 z-0"></div>
+             <!-- TITRE-PARAGRAPHE ; BOUTONS; CERCLE -->
+             <div class="relative z-10">
+                <!-- PARTIE TITRE ET PARAGRAPHE -->
+                 <div class=" text-white  mt-60 ml-16 flex flex-col gap-12 ">
+                  <p class="">Des pofessionnels à votre  service</p>
+                  <h1 class="text-5xl font-extrabold">PENJA IMPORT EXPORT <br> EXPERT EN PNEUMATIQUE</h1>
+                  <p>Nous sommes un garage pneumatique et de maintenance express des véhicules</p>
+                  
+                 </div>
+            
+               <!-- PARTIE BOUTTONS -->
+                 <div class="mt-10 ml-16 space-x-2">
+                    <button  class="  relative overflow-hidden group   bg-[#057e2b] pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] min-w-[170px] cursor-pointer  ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10">
+                    
+                    <li class="list-none text-lg  capitalize font-medium group-hover:text-black ">contact</li>
+                    <i class="fa-solid fa-arrow-right group-hover:text-black  "></i>
+                   </span>
+                    <span class=" absolute inset-0 bg-white  translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+
+                </button>
+                    <button  class="  relative overflow-hidden group   pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] min-w-[170px] cursor-pointer border-2 border-[#057e2b]   ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10">
+                     
+                    <li class="list-none text-lg capitalize font-medium group-hover:text-green-500 ">Services</li>
+                    <i class="fa-solid fa-wrench group-hover:text-green-500 "></i>
+                   </span>
+                    <span class=" absolute inset-0 bg-white translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+                    
+
+                </button>
+                 
+                </div>
+                <!-- PARTIE CERCLE D'ICÔNES DE VOITURES -->
+                <div class="flex gap-4 ml-16 mt-10 relative">
+                <div class="w-10 h-10 rounded-full bg-white ">
+                     <i class="fa-solid fa-wrench text-green-500 text-2xl p-2"></i>
+                </div>
+                  <div class="w-10 h-10 rounded-full bg-white absolute left-8 ">
+                     <i class="fa-solid fa-car text-green-500 text-2xl p-2"></i>
+                </div>
+                  <div class="w-10 h-10 rounded-full bg-white absolute left-16">
+                     <i class="fa-solid fa-gear text-green-500 text-2xl p-2"></i>
+                </div>
+                  <div class="w-10 h-10 rounded-full bg-[#057e2b] absolute left-24 ">
+                     <i class="fa-solid fa-plus  text-white text-2xl p-2"></i>
+                </div>
+                </div>
+
+                 <!-- PARTIE CARRÉE VERT ET ROUES -->
+                  <div class="absolute top-40 left-[1310px] w-[486px] h-[528px] bg-[url('../images/car-shape.png')]">
+                    <img src="./assets/images/huile.png" alt="" class="absolute top-28 w-[691.36] h-[438.436]">
+                    </div>
+
+             </div>
+                
+
+               
+
+                
+                    </div>
+
+            </div>
+
+           <!-- Boutons cliquables du carrousel -->
+            <div
+                class=" flex justify-center items-center absolute bottom-6 left-1/2 transform -translate-x-1/2 space-x-3 z-10">
+                <div class="mon_cercle rounded-full">
+                    <div class="mon-boutton  w-4 h-4 bg-green-500 rounded-full transition"></div>
+                </div>
+                <div class="mon_cercle rounded-full">
+                    <div class="mon-boutton  w-4 h-4 bg-green-500 rounded-full transition"></div>
+                </div>
+                <div class="mon_cercle rounded-full">
+                    <div class="mon-boutton  w-4 h-4 bg-green-500 rounded-full transition"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+   
+
+ 
+
+    <main>
+        <div class="  flex flex-col md:flex-row gap-28 md:gap-64 mt-48 ml-16 1585:ml-60">
+            <!-- Partie-Left -->
+            <div class=" relative h-[494px] ">
+                <div class="relative bg-[url('../images/a1.png')] w-[391px] h-[494px] rounded-[12px]"></div>
+                <img src="./assets/images/11.png" alt="" class="w-[360px] h-[382px] absolute -bottom-[90px] left-52">
+                <div id="compteur" class=" absolute w-[185.483px] h-[188px] bg-[#057e2b] rounded-xl top-0 left-[368px] flex flex-col items-center justify-center py-12 text-white ">
+                    
+                        <h3 id="valeurCompteur" class="text-[40px] font-bold ">0+</h3>
+                    <p class="">Années d'experience</p>
+                    
+                </div>
+
+            </div>
+
+            <!-- Partie- Right -->
+            <div class="">
+                <div>
+                    <h2 class="capitalize text-xl text-[#057e2b] mb-1 font-bold">A Propos de nous</h2>
+                <h3 class="text-[40px] font-extrabold">PENJA IMPORT EXPORT SARL,</h3>
+                <p class="text-lg text-[#555555]">Nous sommes un garage pneumatique  et de maintenance express des <br> véhicules. Nous avons plus de trois années d'expérience dans ce domaine. <br> Nous disposons d'un matériel moderne et performant, ainsi que d'une équipe <br> dynamique et qualifiée. </p>
+                
+                </div>
+                <div class="w-[615px]  h-[318.5px] border-t-2  border-[#e4e4e4] mt-[30px]"></div>
+
+                <!-- Partie Titre et Paragraphe caché -->
+                 
+                  <div class="">
+                    <!-- titres -->
+                 <ul class=" -mt-[280px]  w-[615px] h-[56px] bg-gray-400 lg1:flex">
+                    <li class="titre cursor-pointer" onclick="paragraphe(0)">
+                         <h2 class="capitalize  w-[181.53px] h-[56px]  text-white text-xl font-medium pt-[14px] pb-[14px] pl-[25px]  cursor-pointer" >notre mission</h2>
+                    </li>
+                     <li class="titre cursor-pointer" onclick="paragraphe(1)">
+                         <h2 class="capitalize  w-[181.53px] h-[56px] text-white text-xl font-medium pt-[14px] pb-[14px] pl-[25px]  cursor-pointer" >notre vision</h2>
+                    </li>
+                     <li class="titre cursor-pointer" onclick="paragraphe(2)">
+                         <h2 class="capitalize  w-[247.7px] h-[56px]  text-white text-xl font-medium pt-[14px] pb-[14px] pl-[28px] cursor-pointer " >caractéristiques clés</h2>
+                    </li>
+
+                 </ul>
+                 <!-- paragraphe -->
+
+                  <!-- paragraphe 1 -->
+                  <div class="contenu lg1:mt-40 mt-9 hidden">
+                    <p class=" ">Fournir des services de maintenance automobile express et de pneumatique <br> avec un niveau élevé de professionnalisme et d'efficacité.</p>
+                    <div class="flex gap-[30px] mt-[50px]">
+                            <button  class="  relative overflow-hidden group   bg-[#057e2b] rounded-[30px] min-w-[253.683px] h-[53.5px] cursor-pointer  ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10 ">
+                    
+                    <li class="list-none text-lg  capitalize font-medium group-hover:text-white ">a propos de penja</li>
+                    <i class="fa-solid fa-arrow-right group-hover:text-white  "></i>
+                   </span>
+                    <span class=" absolute inset-0 bg-black  translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+
+                </button>
+                <div class=" flex gap-5">
+                    <div class=" relative w-[54px] h-[54px] rounded-full border border-[#057e2b]">
+                         <i class="fa-solid fa-phone text-[#057e2b] text-lg  font-medium absolute top-4 left-4"></i>
+                    </div>
+                    <span>
+                        <h4 class="font-medium text-lg mb-[10px]">Appel à l'aide</h4>
+                        <h2 class="text-xl font-medium"> (+237) 680 47 65 36 </h2>
+                    </span>
+                </div>
+                         </div>
+
+
+                  </div>
+
+                  <!-- paragraphe 2-->
+                  <div class="contenu mt-9 hidden">
+                    <p class="  ">Devenir un leader régional reconnu pour l'excellence en pneumatique et <br> maintenance express, tout en garantissant des services fiables, rapides et de <br> qualité pour tous les véhicules. </p>
+                    <div class="flex gap-[30px] mt-[50px]">
+                            <button  class="  relative overflow-hidden group   bg-[#057e2b] rounded-[30px] min-w-[253.683px] h-[53.5px] cursor-pointer  ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10 ">
+                    
+                    <li class="list-none text-lg  capitalize font-medium group-hover:text-white ">a propos de penja</li>
+                    <i class="fa-solid fa-arrow-right group-hover:text-white  "></i>
+                   </span>
+                    <span class=" absolute inset-0 bg-black  translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+
+                </button>
+                <div class=" flex gap-5">
+                    <div class=" relative w-[54px] h-[54px] rounded-full border border-[#057e2b]">
+                         <i class="fa-solid fa-phone text-[#057e2b] text-lg  font-medium absolute top-4 left-4"></i>
+                    </div>
+                    <span>
+                        <h4 class="font-medium text-lg mb-[10px]">Appel à l'aide</h4>
+                        <h2 class="text-xl font-medium"> (+237) 680 47 65 36 </h2>
+                    </span>
+                </div>
+                         </div>
+
+
+                  </div>
+
+                  <!-- paragraphe 3 -->
+                  <div class="contenu mt-9 hidden">
+                    <p class="  ">Expertise éprouvée : Plus de trois ans d'expérience dans la maintenance <br> automobile et <br> le pneumatique. Équipement moderne : Utilisation d'outils et de technologies performants pour des services de haute qualité. Service <br> rapide et fiable : Réparations et entretiens express pour minimiser les temps <br> d'arrêt des véhicules. </p>
+                    <div class="flex gap-[30px] mt-[50px]">
+                            <button  class="  relative overflow-hidden group   bg-[#057e2b] rounded-[30px] min-w-[253.683px] h-[53.5px] cursor-pointer  ">
+
+                   <span class="text-white flex justify-center items-center gap-2 relative z-10 ">
+                    
+                    <li class="list-none text-lg  capitalize font-medium group-hover:text-white ">a propos de penja</li>
+                    <i class="fa-solid fa-arrow-right group-hover:text-white  "></i>
+                   </span>
+                    <span class=" absolute inset-0 bg-black  translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out "></span>
+
+                </button>
+                <div class=" flex gap-5">
+                    <div class=" relative w-[54px] h-[54px] rounded-full border border-[#057e2b]">
+                         <i class="fa-solid fa-phone text-[#057e2b] text-lg  font-medium absolute top-4 left-4"></i>
+                    </div>
+                    <span>
+                        <h4 class="font-medium text-lg mb-[10px]">Appel à l'aide</h4>
+                        <h2 class="text-xl font-medium"> (+237) 680 47 65 36 </h2>
+                    </span>
+                </div>
+                         </div>
+
+
+                  </div>
+                  </div>
+
+
+            </div>
+        </div>
+
+        <!-- Bouton qui va nous permettre de monter vers le haut -->
+
+        <button  id="boutonHaut" class="fixed bottom-6 right-6 w-[60px] h-[60px] rounded-full bg-[#057e2b] hover:bg-black transition duration-300 ease-in-out hidden ">
+            <i class="fa-solid fa-arrow-up text-white"></i>
+
+        </button>
+
+    </main>
+    <footer></footer>
+
+    <script>
+
+    </script>
+
+</body>
+
+</html>

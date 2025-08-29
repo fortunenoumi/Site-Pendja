@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Paragraphe actif</title>
+  <script>
+    // function toggleParagraphe(index) {
+    //   const paragraphes = document.querySelectorAll('.contenu');
+    //   const titres = document.querySelectorAll('.titre');
+
+    //   paragraphes.forEach((el, i) => {
+    //     el.style.display = (i === index) ? 'block' : 'none';
+    //     titres[i].classList.toggle('bg-blue-600', i === index);
+    //     titres[i].classList.toggle('bg-red-600', i !== index);
+    //   });
+    // }
+
+    // window.addEventListener('DOMContentLoaded', () => {
+    //   toggleParagraphe(0); // Par défaut, affiche le premier
+    // });
+
+    function toggleParagraphe(indexClique) {
+  // Sélection des éléments DOM
+  const tousLesParagraphes = document.querySelectorAll('.contenu');
+  const tousLesTitres = document.querySelectorAll('.titre');
+
+  // Boucle sur chaque paragraphe et chaque titre
+  tousLesParagraphes.forEach((paragraphe, position) => {
+    const titre = tousLesTitres[position];
+
+    // Si c'est le paragraphe cliqué
+    if (position === indexClique) {
+      paragraphe.style.display = 'block'; // On affiche
+      titre.classList.add('bg-blue-600'); // Fond bleu actif
+      titre.classList.remove('bg-red-600'); // On retire le fond rouge
+    } else {
+      paragraphe.style.display = 'none'; // On masque les autres
+      titre.classList.add('bg-red-600'); // Fond rouge normal
+      titre.classList.remove('bg-blue-600'); // On retire le fond actif
+    }
+  });
+}
+
+// Une fois la page chargée, on affiche le premier paragraphe
+window.addEventListener('DOMContentLoaded', () => {
+  toggleParagraphe(0);
+});
+
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8 font-sans">
+
+  <div class="max-w-4xl mx-auto">
+    
+    <!-- Barre des titres -->
+    <div class="flex bg-red-600 rounded-lg overflow-hidden">
+      <div class="titre flex-1 text-center text-white font-medium py-4 cursor-pointer transition hover:bg-red-700" onclick="toggleParagraphe(0)">
+        🌱 Introduction
+      </div>
+      <div class="titre flex-1 text-center text-white font-medium py-4 cursor-pointer transition hover:bg-red-700" onclick="toggleParagraphe(1)">
+        🧠 Détails techniques
+      </div>
+      <div class="titre flex-1 text-center text-white font-medium py-4 cursor-pointer transition hover:bg-red-700" onclick="toggleParagraphe(2)">
+        🎯 Conclusion
+      </div>
+    </div>
+
+    <!-- Paragraphes -->
+    <div class="contenu mt-6 p-6 rounded-lg bg-blue-100 text-gray-800 hidden">
+      Voici le premier paragraphe. Il introduit le sujet avec clarté et efficacité. Tu peux y intégrer une accroche narrative ou contextuelle.
+    </div>
+
+    <div class="contenu mt-6 p-6 rounded-lg bg-blue-100 text-gray-800 hidden">
+      Ce paragraphe approfondit les aspects techniques : logique, code, structure, UX précis ou transition cinématographique.
+    </div>
+
+    <div class="contenu mt-6 p-6 rounded-lg bg-blue-100 text-gray-800 hidden">
+      Paragraphe final, utile pour synthétiser, proposer des solutions ou ouvrir vers des optimisations plus avancées.
+    </div>
+
+  </div>
+
+</body>
+</html>

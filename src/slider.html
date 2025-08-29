@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/output.css">
+    <!-- <script src="./assets/js/fortune.js"></script> -->
+</head>
+<body>
+
+    <header> 
+      <div class=" relative w-screen overflow-hidden">
+        <div id="slider" class="flex transition-transform duration-1000 ease-in-out">
+          <img src="./assets/images/adobestock.jpeg" alt="" class="w-screen h-screen object-cover flex-shrink-0 ">
+          <img src="./assets/images/car-being-taking-care-workshop.jpeg" alt="" class="w-screen h-screen object-cover flex-shrink-0">
+          <img src="./assets/images/vidange(1).jpeg" alt="" class="w-screen h-screen object-cover flex-shrink-0" >
+
+        </div>
+        <!-- <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex gap-4 z-10">
+  <button class="w-4 h-4 rounded-full bg-white opacity-100 transition" onclick="changerSlide(0)"></button>
+  <button class="w-4 h-4 rounded-full bg-white opacity-100 transition" onclick="changerSlide(1)"></button>
+  <button class="w-4 h-4 rounded-full bg-white opacity-100 transition" onclick="changerSlide(2)"></button>
+</div> -->
+
+    <div id="controls" class="absolute bottom-15 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
+      <button class="slide-btn w-4 h-4 rounded-full bg-red-500 opacity-100 transition"></button>
+        <button class="slide-btn w-4 h-4 rounded-full bg-red-500 opacity-100 transition"></button>
+          <button class="slide-btn w-4 h-4 rounded-full bg-red-500 opacity-100 transition"></button>
+
+
+    </div>
+
+
+
+      </div>
+
+
+    </header>
+
+    <!-- BOUTON TOGGLE MOBILE -->
+<button id="toggle-navbar" class="block md:hidden fixed top-4 right-4 z-50 bg-[#057e2b] text-white px-4 py-2 rounded-lg">
+  Menu
+</button>
+
+<!-- NAVBAR RESPONSIVE -->
+<nav id="scroll-navbar" class="fixed top-0 left-0 z-40 w-full bg-white hidden md:flex transition duration-500">
+  <div class="flex justify-center items-center space-x-96 ml-72 mt-2">
+    <img src="./assets/images/logo-removebg-preview.png" alt="" class="w-20">
+    
+    <ul class="flex gap-10 justify-center items-center">
+      <li><a href="" class="text-lg text-black">Accueil</a></li>
+      <li><a href="" class="text-lg text-black">A Propos</a></li>
+      <li><a href="" class="text-lg text-black">Services</a></li>
+      <li><a href="" class="text-lg text-black">Galerie</a></li>
+      
+      <button class="relative overflow-hidden group bg-[#057e2b] pt-4 pb-3.5 pl-10 pr-10 rounded-[30px] min-w-[170px] cursor-pointer ml-52">
+        <span class="text-white flex justify-center items-center gap-2 relative z-10">
+          <i class="fa-solid fa-phone text-lg"></i>
+          <li class="list-none text-lg capitalize font-medium">contact</li>
+        </span>
+        <span class="absolute inset-0 bg-black translate-x-[-100%] group-hover:translate-x-0 transition-all duration-400 ease-in-out"></span>
+      </button>
+    </ul>
+  </div>
+
+ <!-- AFFICHAGE DU BOUTON MENU SUR GRANDE TAILLE D'ÉCRAN -->
+                    
+ 
+ <div class="">
+                        <div class="z-20  ">
+
+                            <button id="menuButton" class="xl1:p-2 text-3xl cursor-pointer">
+                                <span>&#9776;</span>
+                                <!-- <i class="fa-solid fa-bars text-3xl   "></i> -->
+                            </button>
+
+                        </div>
+
+                        <div id="menuContainer"
+                            class=" fixed  left-0 top-16 xl1:w-1/4 h-full   bg-white  flex flex-col items-start space-y-4 text-lg p-6 transform translate-x-[2000px] transition-transform duration-300 border-r border-gray-100 overflow-y-auto pb-20">
+
+                            <!-- <div id="menuContainer"
+                            class="fixed left-0 top-16 w-1/4   bg-white text-white flex flex-col items-start space-y-4 text-lg p-6 transform-translate-x-full overflow-y-auto border-r border-gray-100 transition-transform duration-300"> -->
+
+                            <!-- IMAGE ET BOUTON CLOSE SUR LA MEME LIGNE -->
+                            <div class="flex items-center justify-between w-full">
+                                <img src="./assets/images/images_Accueil/boulangerie-saker.png" alt=""
+                                    class="w-20 h-12  rounded-full cursor-pointer">
+                                <button id="closeButton"
+                                    class="p-2 w-10 h-10 bg-gray-200 text-white rounded-lg hover:bg-gray-300 transition cursor-pointer">&times;
+                                </button>
+                            </div>
+
+                            <!-- LIENS DE NAVIGATION  de l'icône menu-->
+                            <div>
+                                <h1 class="uppercase text-[16px] mt-6 text-gray-300 font-bold">main menu</h1>
+
+                                <ul class="flex flex-col  mt-3  font-medium text-[16px] text-black  ">
+                                    <li class="p-3"><a href="#"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">Accueil</a>
+                                    </li>
+                                    <li class="p-3"><a href="#"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">A
+                                            propos</a></li>
+                                    <li class="p-3">
+                                        <a href="#" class=" pb-4  flex justify-between" onclick="toggleDropdown2()">
+                                            <span>Nos produits</span>
+                                            <span id="arrow2"><i class="fa-solid fa-angle-down"></i></span>
+
+                                        </a>
+                                        <ul id="dropdown2"
+                                            class=" absolute hidden bg-white space-y-2 p-1 text-xl font-normal">
+                                            <li class="">Autres viennoiserie</li>
+                                            <li class="">Panification</li>
+                                            <li class="">Pâte à brioche</li>
+                                            <li class="">Pâte feuilletée</li>
+                                            <li class="">Pâtisserie fraîche</li>
+
+                                        </ul>
+                                    </li>
+                                    <hr class="w-96 border-gray-200 -mt-4 ml-3">
+
+
+
+                                    <!-- <li class="p-3"><a href="#" 
+                                            class="pb-4 flex justify-between" onclick="toggleDropdown3()">
+                                            <span>Nos partenaires</span> 
+                                            <span id="arrow3"><i class="fa-solid fa-angle-down "></i></span>
+                                            <ul id="dropdown3" class=" absolute hidden bg-white space-y-2 p-1 text-xl font-normal mt-4">
+                                                <li class="">Mimosa</li>
+                                                <li class="">Paaf</li>
+                                                
+
+                                                
+                                                
+    
+                                            </ul>
+                                        </a>
+                                    </li> -->
+
+                                    <li class="p-3">
+                                        <a href="#" class=" pb-4  flex justify-between" onclick="toggleDropdown3()">
+                                            <span>Nos partenaires</span>
+                                            <span id="arrow3"><i class="fa-solid fa-angle-down"></i></span>
+
+                                        </a>
+                                        <ul id="dropdown3"
+                                            class=" absolute hidden bg-white space-y-2 p-1 text-xl font-normal">
+                                            <li class="">Mimosa</li>
+                                            <li class="">Paaf</li>
+
+
+                                        </ul>
+                                    </li>
+                                    <hr class="w-96 border-gray-200 -mt-4 ml-3">
+
+                                    <li class="p-3"><a href="commandez.html"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">Commandez</a>
+                                    </li>
+                                    <li class="p-2"><a href="contact.html" class="">Contactez nous</a></li>
+
+                                </ul>
+
+                                <ul class="flex flex-col mt-3  font-medium text-[16px] text-black ">
+                                    <h1 class="uppercase text-[16px] mt-6 text-gray-300 font-bold">category menu</h1>
+
+                                    <li class="p-3"><a href="#"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">Panification</a>
+                                    </li>
+                                    <li class="p-3"><a href="#"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">Pâte
+                                            à brioche</a></li>
+                                    <li class="p-3"><a href="#"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">Pâte
+                                            feuilletée</a></li>
+
+
+                                    <li class="p-3"><a href="#"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">Pâtiserie
+                                            fraîche</a></li>
+                                    <li class="p-3"><a href="#"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">Autres
+                                            viennoiserie</a></li>
+                                    <li class="p-3"><a href="#"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">Anniversaire</a>
+                                    </li>
+                                    <li class="p-3"><a href="#"
+                                            class="relative after:content:[''] after:absolute after:left-0 after:bottom-0 after:w-96 after:h-[1px] after:bg-gray-200 pb-4 ">Mariage</a>
+                                    </li>
+                                    <li class="p-4 text-lg   ">
+                                        <a href="" class="  flex flex-row gap-20 ">
+                                            <span>Glaces Saker</span>
+                                            <span
+                                                class="text-white font-bold  bg-blue-400   rounded-2xl   text-[14px]  px-4  py-2  ml-20  ">NOUVEAU</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                                <ul class="flex flex-col w-full mt-3  font-medium text-xs text-black ">
+                                    <h1 class="uppercase text-[16px] mt-6 text-gray-300 font-bold">contact details</h1>
+
+                                    <div class="flex flex-col  gap-8 mt-4 ml-3">
+                                        <div class="flex items-center gap-4 font-medium ">
+                                            <i class="fa-solid fa-phone text-white rounded bg-black py-1 px-1"></i>
+                                            <p class="text-xl ">695944664 / 683355262</p>
+
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center gap-4 font-medium">
+                                                <i class="fa-solid fa-envelope  text-2xl"></i>
+                                                <p class="text-xl font-bold ">contact@boulangerie-saker.cm</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="w-96   text-[16px] text-black mt-20 ml-3 font-normal">Copyright 2024 ©
+                                        Boulangerie Saker. Tous droits réservés.</p>
+
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </div>
+</nav>
+
+
+
+
+    <main></main>
+
+    <footer></footer>
+
+
+    <script>
+      const slider1 = document.getElementById('slider')
+      let mon_compteur1 = 0;
+      setInterval(() => {
+        mon_compteur1 = (mon_compteur1 + 1) % 3;
+        // slider1.style.transform =  `translateX(-${mon_compteur * 100}vw)`       
+        slider1.style.transform = "translateX(-" + (mon_compteur1 * 100)+ "vw)"
+        
+      }, 5000);
+      
+//       function changerSlide(index) {
+//   mon_compteur = index;
+//   slider1.style.transform = "translateX(-" + (mon_compteur * 100) + "vw)";
+// }
+
+// const slider = document.getElementById('slider');
+// const boutons = document.querySelectorAll('.slide-btn');
+// let mon_compteur = 0
+// const largeurSlide = window.innerWidth
+
+// boutons.forEach((btn,index) => {
+//   btn.addEventListener('click',() => {
+//     mon_compteur = index;
+//     updateSlide(mon_compteur)
+//     updateActiveBtn(index);
+//   } )
+// })
+
+// function updateSlide(index) {
+//   slider.style.transform = "translateX(-" + (largeurSlide * index) + "px)" 
+// }
+
+// function updateActiveBtn(activeIndex){
+//   boutons.forEach(btn => btn.classList.remove('opacity-100'));
+//   boutons.forEach(btn=> btn.classList.add('opacity-70'))
+//   boutons[activeIndex].classList.remove('opacity-70');
+//   boutons[activeIndex].classList.add('opacity-100');
+// }
+
+// const slider = document.querySelector('#slider');
+// const buttons = document.querySelectorAll('.slide-btn');
+
+// buttons.forEach((btn, index) => {
+//   btn.addEventListener('click', () => {
+//     const slideWidth = slider.offsetWidth; //offsetWidth: la largeur de l'élément alors que window.innerWidth la largeur de l'écran
+//     slider.style.transform = `translateX(-${slideWidth * index}px)`;
+//   });
+// });
+
+
+const slider = document.getElementById('slider');
+const boutton = document.querySelectorAll('.slide-btn');
+
+boutton.forEach((btn,index) =>{
+  btn.addEventListener('click',() =>{
+    const slidewit =slider.offsetWidth
+    slider.style.transform = 'translateX(-' + (slidewit * index)+ 'px)'
+
+  })
+} )
+
+
+  const navbar = document.getElementById('scroll-navbar');
+  const toggleBtn = document.getElementById('toggle-navbar');
+
+  toggleBtn.addEventListener('click', () => {
+    if (window.innerWidth < 620) {
+      navbar.classList.toggle('hidden');
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 620) {
+      navbar.classList.remove('hidden');
+    } else {
+      navbar.classList.add('hidden');
+    }
+  });
+
+   // JAVASCRIPT DE L'ICÔNE MENU DU HAUT
+
+
+
+const menuButton = document.getElementById("menuButton");
+const menuContainer = document.getElementById("menuContainer");
+const closeButton = document.getElementById("closeButton");
+
+
+
+menuButton.addEventListener("click", () => {
+  menuContainer.classList.toggle("translate-x-[2000px]");
+    // menuButton.classList.toggle("hidden");
+    
+
+
+});
+
+closeButton.addEventListener("click", () => {
+  menuContainer.classList.add("translate-x-[2000px]");  //FERME LE  MENU
+
+  menuContainer.classList.remove("hidden");  //VA RÉAFFICHER LE BOUTON MENU
+});
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
